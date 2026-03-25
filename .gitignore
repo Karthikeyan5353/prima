@@ -40,5 +40,5 @@ Thumbs.db
 *.swo
 
 # Backend runtime uploads and local assets
-backend/uploads/
-temp-test.glb
+
+

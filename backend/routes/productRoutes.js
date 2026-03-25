@@ -1,6 +1,5 @@
 const express = require("express");
 const multer = require("multer");
-const fs = require("fs");
 const path = require("path");
 const {
   addProduct,
@@ -14,17 +13,6 @@ const {
 const { protect, adminOnly } = require("../middleware/authMiddleware");
 
 const router = express.Router();
-const uploadsDir = path.join(__dirname, "..", "uploads");
-
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    fs.mkdirSync(uploadsDir, { recursive: true });
-    cb(null, uploadsDir);
-  },
-  filename: function (req, file, cb) {
-    cb(null, `${Date.now()}-${file.originalname}`);
-  },
-});
 
 const allowedMimeTypes = new Set([
   "image/jpeg",
@@ -39,7 +27,7 @@ const allowedMimeTypes = new Set([
 const allowedExtensions = new Set([".jpg", ".jpeg", ".png", ".webp", ".gif", ".svg", ".glb"]);
 
 const upload = multer({
-  storage,
+  storage: multer.memoryStorage(),
   fileFilter: (req, file, cb) => {
     const ext = path.extname(file.originalname || "").toLowerCase();
     if (allowedMimeTypes.has(file.mimetype) || allowedExtensions.has(ext)) {
