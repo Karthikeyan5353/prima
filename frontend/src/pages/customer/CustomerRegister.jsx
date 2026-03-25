@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import { User, Mail, Lock, ArrowRight } from "lucide-react";
 import Swal from "sweetalert2";
 import Loader from "../../components/common/Loader";
 import { useAuth } from "../../context/AuthContext";
+import api from "../../utils/api";
 
 
 const CustomerRegister = () => {
@@ -26,7 +26,7 @@ const CustomerRegister = () => {
     setLoading(true);
 
     try {
-      const { data } = await axios.post("http://localhost:4000/api/auth/register", form);
+      const { data } = await api.post("/auth/register", form);
       saveUserSession(data);
       Swal.fire({
         icon: "success",

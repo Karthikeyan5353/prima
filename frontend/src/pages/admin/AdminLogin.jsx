@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import { ShieldCheck, Mail, Lock } from "lucide-react";
 import Swal from "sweetalert2";
 import { useAuth } from "../../context/AuthContext";
+import api from "../../utils/api";
 
 const AdminLogin = () => {
   const navigate = useNavigate();
@@ -27,10 +27,7 @@ const AdminLogin = () => {
     setLoading(true);
 
     try {
-      const response = await axios.post(
-        "http://localhost:4000/api/auth/admin-login",
-        formData
-      );
+      const response = await api.post("/auth/admin-login", formData);
       saveAdminSession(response.data);
       navigate("/admin/dashboard");
     } catch (error) {

@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import { Mail, Lock, ArrowRight } from "lucide-react";
 import Swal from "sweetalert2";
 import Loader from "../../components/common/Loader";
 import { useAuth } from "../../context/AuthContext";
+import api from "../../utils/api";
 
 const CustomerLogin = () => {
   const navigate = useNavigate();
@@ -24,10 +24,7 @@ const CustomerLogin = () => {
     setLoading(true);
 
     try {
-      const res = await axios.post(
-        "http://localhost:4000/api/auth/login",
-        form
-      );
+      const res = await api.post("/auth/login", form);
 
       saveUserSession(res.data);
       navigate("/products");
