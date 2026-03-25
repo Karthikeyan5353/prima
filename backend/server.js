@@ -1,6 +1,9 @@
 const express = require("express");
 const cors = require("cors");
 const path = require("path");
+const path = require("path");
+
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 require("dotenv").config();
 
 const connectDB = require("./config/db");
