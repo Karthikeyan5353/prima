@@ -1,0 +1,87 @@
+:root {
+  /* =========================
+     COLOR PALETTE
+     ========================= */
+
+  /* Primary - Rose Gold */
+  --primary: #B76E79;
+  --primary-hover: #A05A65;
+  --primary-light: #F2E1E3;
+
+  /* Neutral / Dark */
+  --dark: #2C2C2C;
+  --dark-light: #3D3D3D;
+
+  /* Backgrounds */
+  --bg-body: #F8F5F2;
+  --bg-surface: #FFFFFF;
+  --bg-muted: #F0F0F0;
+
+  /* Text */
+  --text-main: #2C2C2C;
+  --text-muted: #6B6B6B;
+  --text-light: #9E9E9E;
+  --text-white: #FFFFFF;
+
+  /* Utility */
+  --border: #E0E0E0;
+  --success: #4CAF50;
+  --danger: #E53935;
+  --warning: #FF9800;
+  --info: #2196F3;
+
+  /* =========================
+     TYPOGRAPHY
+     ========================= */
+  --font-heading: 'Playfair Display', serif;
+  --font-body: 'Poppins', sans-serif;
+
+  --weight-light: 300;
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+
+  /* =========================
+     SPACING & LAYOUT
+     ========================= */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+  --spacing-xxl: 40px;
+  --spacing-section: 60px;
+  /* Generous section gap */
+
+  --container-width: 1200px;
+  --container-padding: 20px;
+
+  /* =========================
+     SHAPES & EFFECTS
+     ========================= */
+  --radius-sm: 4px;
+  --radius-btn: 6px;
+  --radius-card: 12px;
+  --radius-badge: 20px;
+  --radius-full: 9999px;
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.025);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.05), 0 10px 10px -5px rgba(0, 0, 0, 0.02);
+  --shadow-premium: 0 12px 24px -6px rgba(183, 110, 121, 0.15);
+  /* Tinted shadow */
+
+  --transition-fast: 150ms ease;
+  --transition-normal: 300ms ease;
+  --transition-slow: 500ms ease;
+
+  /* =========================
+     Z-INDEX
+     ========================= */
+  --z-sticky: 100;
+  --z-drawer: 200;
+  --z-modal: 300;
+  --z-toast: 400;
+}

@@ -1,0 +1,217 @@
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { Mail, Lock, ArrowRight } from "lucide-react";
+import Swal from "sweetalert2";
+import Loader from "../../components/common/Loader";
+import { useAuth } from "../../context/AuthContext";
+
+const CustomerLogin = () => {
+  const navigate = useNavigate();
+  const { saveUserSession } = useAuth();
+  const [loading, setLoading] = useState(false);
+  const [form, setForm] = useState({
+    email: "",
+    password: "",
+  });
+
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+
+    try {
+      const res = await axios.post(
+        "http://localhost:4000/api/auth/login",
+        form
+      );
+
+      saveUserSession(res.data);
+      navigate("/products");
+    } catch (err) {
+      Swal.fire({
+        icon: "error",
+        title: "Login Failed",
+        text: "Invalid Credentials",
+        confirmButtonColor: "#B76E79",
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div style={styles.container}>
+      {loading && <Loader fullScreen text="Authenticating..." />}
+      <div style={styles.splitLayout}>
+        {/* Left Side - Image/Brand */}
+        <div style={styles.brandSection}>
+          <div style={styles.overlay}></div>
+          <h1 style={styles.brandTitle}>Prima Boutique</h1>
+          <p style={styles.brandSubtitle}>Luxury Reimagined</p>
+        </div>
+
+        {/* Right Side - Form */}
+        <div style={styles.formSection}>
+          <div style={styles.formWrapper}>
+            <div style={styles.header}>
+              <h2>Welcome Back</h2>
+              <p>Sign in to continue your shopping journey</p>
+            </div>
+
+            <form onSubmit={handleSubmit} style={styles.form}>
+              <div className="form-group">
+                <label className="form-label">Email Address</label>
+                <div style={styles.inputWrapper}>
+                  <Mail size={18} style={styles.inputIcon} />
+                  <input
+                    type="email"
+                    name="email"
+                    placeholder="name@example.com"
+                    onChange={handleChange}
+                    className="form-input"
+                    style={{ paddingLeft: "45px" }}
+                    required
+                  />
+                </div>
+              </div>
+
+              <div className="form-group">
+                <label className="form-label">Password</label>
+                <div style={styles.inputWrapper}>
+                  <Lock size={18} style={styles.inputIcon} />
+                  <input
+                    type="password"
+                    name="password"
+                    placeholder="••••••••"
+                    onChange={handleChange}
+                    className="form-input"
+                    style={{ paddingLeft: "45px" }}
+                    required
+                  />
+                </div>
+              </div>
+
+              <button
+                type="submit"
+                className="btn btn-primary"
+                style={{ width: "100%", marginTop: "10px" }}
+                disabled={loading}
+              >
+                {loading ? "Signing in..." : "Sign In"}
+              </button>
+            </form>
+
+            <div style={styles.footer}>
+              <p>
+                New here?{" "}
+                <span
+                  style={styles.link}
+                  onClick={() => navigate("/customer/register")}
+                >
+                  Create an account
+                </span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const styles = {
+  container: {
+    height: "100vh",
+    width: "100%",
+    backgroundColor: "var(--bg-body)",
+    overflow: "hidden"
+  },
+  splitLayout: {
+    display: "flex",
+    height: "100%"
+  },
+  brandSection: {
+    flex: "1",
+    backgroundColor: "var(--primary)",
+    position: "relative",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    color: "white",
+    backgroundImage: "url('https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=2070&auto=format&fit=crop')",
+    backgroundSize: "cover",
+    backgroundPosition: "center"
+  },
+  overlay: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: "rgba(183, 110, 121, 0.8)", // Primary color with opacity
+    zIndex: 1
+  },
+  brandTitle: {
+    fontSize: "4rem",
+    fontFamily: "var(--font-heading)",
+    zIndex: 2,
+    margin: 0
+  },
+  brandSubtitle: {
+    fontSize: "1.2rem",
+    letterSpacing: "3px",
+    textTransform: "uppercase",
+    zIndex: 2,
+    opacity: 0.9
+  },
+  formSection: {
+    flex: "1",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "var(--bg-surface)"
+  },
+  formWrapper: {
+    width: "100%",
+    maxWidth: "450px",
+    padding: "40px"
+  },
+  header: {
+    marginBottom: "40px",
+    textAlign: "center"
+  },
+  form: {
+    display: "flex",
+    flexDirection: "column",
+    gap: "15px"
+  },
+  inputWrapper: {
+    position: "relative",
+    display: "flex",
+    alignItems: "center"
+  },
+  inputIcon: {
+    position: "absolute",
+    left: "15px",
+    color: "var(--text-muted)"
+  },
+  footer: {
+    marginTop: "30px",
+    textAlign: "center",
+    color: "var(--text-muted)",
+    fontSize: "0.9rem"
+  },
+  link: {
+    color: "var(--primary)",
+    fontWeight: "600",
+    cursor: "pointer",
+    marginLeft: "5px"
+  }
+};
+
+export default CustomerLogin;
